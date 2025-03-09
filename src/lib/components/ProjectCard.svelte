@@ -50,10 +50,10 @@
 
 	<p class="desc">{project.desc}</p>
 
-	<a href="#" class="link" style="color: {projectColor}">
+	<button class="link" style="color: {projectColor}">
 		<span>View Project</span>
 		<span class="arrow">→</span>
-	</a>
+	</button>
 </card>
 
 <style>
@@ -121,6 +121,11 @@
 		align-items: center;
 		gap: 8px;
 		text-decoration: none;
+
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
 	}
 
 	.arrow {

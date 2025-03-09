@@ -27,18 +27,24 @@
 	<p>{data.intro}</p>
 
 	<social>
-		<a href="https://{data.links.github}" target="_blank" rel="noopener noreferrer">
-			<span>GitHub</span>
-			<span>→</span>
-		</a>
-		<a href="https://{data.links.linkedin}" target="_blank" rel="noopener noreferrer">
-			<span>LinkedIn</span>
-			<span>→</span>
-		</a>
-		<a href="https://{data.links.cv}" target="_blank" rel="noopener noreferrer">
-			<span>Download CV</span>
-			<span>→</span>
-		</a>
+		{#if data.links.github}
+			<a href="https://{data.links.github}" target="_blank" rel="noopener noreferrer">
+				<span>GitHub</span>
+				<span>→</span>
+			</a>
+		{/if}
+		{#if data.links.linkedin}
+			<a href="https://{data.links.linkedin}" target="_blank" rel="noopener noreferrer">
+				<span>LinkedIn</span>
+				<span>→</span>
+			</a>
+		{/if}
+		{#if data.links.cv}
+			<a href="https://{data.links.cv}" target="_blank" rel="noopener noreferrer">
+				<span>Download CV</span>
+				<span>→</span>
+			</a>
+		{/if}
 	</social>
 </section>
 
