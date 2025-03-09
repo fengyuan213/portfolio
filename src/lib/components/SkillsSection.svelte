@@ -3,6 +3,9 @@
 	import SkillCard from './SkillCard.svelte';
 
 	export let skills: SkillSet;
+
+	// Transform the skills object into an array for dynamic rendering
+	$: skillArray = Object.values(skills);
 </script>
 
 <section id="skills" class="skills">
@@ -12,9 +15,9 @@
 	</header>
 
 	<skill-list>
-		<SkillCard skill={skills.languages} title="Programming Languages" />
-		<SkillCard skill={skills.frontend} title="Frontend Development" />
-		<SkillCard skill={skills.backend} title="Backend Development" />
+		{#each skillArray as skill}
+			<SkillCard {skill} />
+		{/each}
 	</skill-list>
 </section>
 

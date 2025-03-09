@@ -8,8 +8,8 @@
 <nav class="main-nav">
 	<nav-inner>
 		<logo>
-			<logo-icon>JD</logo-icon>
-			<logo-text>Portfolio</logo-text>
+			<logo-icon>FL</logo-icon>
+			<logo-text>Freddy's DevOps Space</logo-text>
 		</logo>
 
 		<links>

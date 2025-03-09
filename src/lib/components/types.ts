@@ -2,22 +2,21 @@ export interface Skill {
   icon: string;
   items: string[];
   color: string;
+  title: string;
 }
 
 export interface SkillSet {
-  languages: Skill;
-  frontend: Skill;
-  backend: Skill;
-  cloud: Skill;
-  tools: Skill;
+  [key: string]: Skill;
 }
 
 export interface Project {
   id: number;
   title: string;
-  type: string;
+
   tags: string[];
   desc: string;
+  icon: string;
+  color: string;
 }
 
 export interface Education {

@@ -2,7 +2,6 @@
 	import type { Skill } from './types';
 
 	export let skill: Skill;
-	export let title: string;
 
 	$: backgroundColor = `${skill.color}20`; // 20 is ~12% opacity in hex
 </script>
@@ -11,7 +10,7 @@
 	<icon style="background-color: {backgroundColor}">{skill.icon}</icon>
 
 	<content>
-		<h4 class="title">{title}</h4>
+		<h4 class="title">{skill.title}</h4>
 
 		<tags>
 			{#each skill.items as item}

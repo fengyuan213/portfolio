@@ -3,54 +3,26 @@
 
 	export let project: Project;
 
-	const getProjectIcon = (type: string) => {
-		switch (type) {
-			case 'ai':
-				return '🤖';
-			case 'data':
-				return '📊';
-			case 'cloud':
-				return '☁️';
-			default:
-				return '💻';
-		}
-	};
-
-	const getProjectColor = (type: string) => {
-		switch (type) {
-			case 'ai':
-				return '#22D3EE';
-			case 'data':
-				return '#818CF8';
-			case 'cloud':
-				return '#A78BFA';
-			default:
-				return '#22D3EE';
-		}
-	};
-
-	$: projectColor = getProjectColor(project.type);
-	$: projectIcon = getProjectIcon(project.type);
-	$: backgroundColor = `${projectColor}20`; // 20 is ~12% opacity in hex
+	$: backgroundColor = `${project.color}20`; // 20 is ~12% opacity in hex
 </script>
 
 <card>
 	<card-header>
 		<title-wrap>
-			<icon style="background-color: {backgroundColor}">{projectIcon}</icon>
+			<icon style="background-color: {backgroundColor}">{project.icon}</icon>
 			<h4 class="title">{project.title}</h4>
 		</title-wrap>
 
 		<tags>
 			{#each project.tags as tag}
-				<tag style="background-color: {backgroundColor}; color: {projectColor}">{tag}</tag>
+				<tag style="background-color: {backgroundColor}; color: {project.color}">{tag}</tag>
 			{/each}
 		</tags>
 	</card-header>
 
 	<p class="desc">{project.desc}</p>
 
-	<button class="link" style="color: {projectColor}">
+	<button class="link" style="color: {project.color}">
 		<span>View Project</span>
 		<span class="arrow">→</span>
 	</button>
