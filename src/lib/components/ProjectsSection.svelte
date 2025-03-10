@@ -1,54 +1,53 @@
 <script lang="ts">
-	import type { Project } from './types';
 	import ProjectCard from './ProjectCard.svelte';
+	import type { Project } from './types';
 
-	export let projects: Project[];
+	const { projects }: { projects: Project[] } = $props();
 </script>
 
-<section id="projects" class="projects">
+<section id="projects">
 	<header>
-		<h3 class="title">Featured Projects</h3>
-		<divider></divider>
+		<section-title>Projects</section-title>
+		<subtitle>Some of my recent work</subtitle>
 	</header>
 
-	<cards>
-		{#each projects as project}
+	<project-grid>
+		{#each projects as project (project.title)}
 			<ProjectCard {project} />
 		{/each}
-	</cards>
+	</project-grid>
 </section>
 
 <style>
-	.projects {
-		background-color: rgba(248, 250, 252, 0.02);
-		backdrop-filter: blur(8px);
-		border-radius: 24px;
-		padding: 32px;
+	section {
+		padding: 40px 0;
 	}
 
 	header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 32px;
+		margin-bottom: 20px;
+
+		& section-title {
+			font-size: 28px;
+			font-weight: 600;
+			color: #f8fafc;
+			margin-bottom: 6px;
+			display: block;
+		}
+
+		& subtitle {
+			color: #94a3b8;
+			font-size: 16px;
+			display: block;
+		}
 	}
 
-	.title {
-		font-size: 20px;
-		font-weight: 600;
-		color: #e2e8f0;
-	}
-
-	divider {
-		display: block;
-		width: 40px;
-		height: 2px;
-		background-color: #22d3ee;
-	}
-
-	cards {
-		display: flex;
-		flex-direction: column;
+	project-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: 20px;
+
+		@media (max-width: 640px) {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

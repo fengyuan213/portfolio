@@ -1,115 +1,203 @@
 <script lang="ts">
-	export let activeSection: string;
-	export let onSectionClick: (section: string) => void;
+	import { onMount } from 'svelte';
 
-	const sections = ['About', 'Skills', 'Projects', 'Contact'];
+	const { activeSection, onSectionClick }: { activeSection: string; onSectionClick } = $props();
+
+	let isScrolled = $state(false);
+	let isMobileMenuOpen = $state(false);
+
+	onMount(() => {
+		const handleScroll = () => {
+			isScrolled = window.scrollY > 50;
+		};
+
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	});
 </script>
 
-<nav class="main-nav">
-	<nav-inner>
+<nav class:scrolled={isScrolled}>
+	<wrap>
 		<logo>
-			<logo-icon>FL</logo-icon>
-			<logo-text>Freddy's DevOps Space</logo-text>
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M10.5 21L5 12L10.5 3H19.5L25 12L19.5 21H10.5Z"
+					fill="url(#gradient)"
+					stroke="url(#stroke)"
+					stroke-width="2"
+				/>
+				<defs>
+					<linearGradient
+						id="gradient"
+						x1="5"
+						y1="3"
+						x2="25"
+						y2="21"
+						gradientUnits="userSpaceOnUse"
+					>
+						<stop stop-color="#38BDF8" />
+						<stop offset="1" stop-color="#6366F1" />
+					</linearGradient>
+					<linearGradient id="stroke" x1="5" y1="3" x2="25" y2="21" gradientUnits="userSpaceOnUse">
+						<stop stop-color="#38BDF8" />
+						<stop offset="1" stop-color="#6366F1" />
+					</linearGradient>
+				</defs>
+			</svg>
+			<span>F.L</span>
 		</logo>
 
-		<links>
-			{#each sections as section}
-				<button
-					class="nav-link {activeSection === section.toLowerCase() ? 'active' : ''}"
-					on:click={() => onSectionClick(section.toLowerCase())}
-				>
-					{section}
-				</button>
-			{/each}
-		</links>
+		<menu class:open={isMobileMenuOpen}>
+			<item class:active={activeSection === 'about'}>
+				<btn on:click={() => onSectionClick('about')}>About</btn>
+			</item>
+			<item class:active={activeSection === 'skills'}>
+				<btn on:click={() => onSectionClick('skills')}>Skills</btn>
+			</item>
+			<item class:active={activeSection === 'projects'}>
+				<btn on:click={() => onSectionClick('projects')}>Projects</btn>
+			</item>
+			<item class:active={activeSection === 'contact'}>
+				<btn on:click={() => onSectionClick('contact')}>Contact</btn>
+			</item>
+		</menu>
 
-		<button class="menu-btn" aria-label="Menu">☰</button>
-	</nav-inner>
+		<toggle on:click={() => (isMobileMenuOpen = !isMobileMenuOpen)}>
+			<bar />
+			<bar />
+			<bar />
+		</toggle>
+	</wrap>
 </nav>
 
 <style>
-	.main-nav {
+	nav {
 		position: fixed;
 		top: 0;
 		left: 0;
-		right: 0;
-		background-color: rgba(15, 23, 42, 0.8);
-		backdrop-filter: blur(8px);
-		border-bottom: 1px solid rgba(248, 250, 252, 0.08);
-		z-index: 50;
+		width: 100%;
+		padding: 20px 0;
+		z-index: 100;
+		transition: all 0.3s ease;
+
+		&.scrolled {
+			padding: 15px 0;
+			background: rgba(15, 23, 42, 0.8);
+			backdrop-filter: blur(8px);
+			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		}
 	}
 
-	nav-inner {
-		max-width: 1200px;
+	wrap {
+		max-width: 1000px;
 		margin: 0 auto;
-		padding: 16px 32px;
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
+		align-items: center;
+		padding: 0 20px;
 	}
 
 	logo {
 		display: flex;
 		align-items: center;
-		gap: 8px;
-	}
-
-	logo-icon {
-		width: 40px;
-		height: 40px;
-		background: linear-gradient(to bottom right, #22d3ee, #818cf8);
-		border-radius: 12px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 20px;
-		font-weight: bold;
-	}
-
-	logo-text {
-		font-size: 18px;
-		font-weight: 500;
-	}
-
-	links {
-		display: flex;
-		align-items: center;
-		gap: 32px;
-	}
-
-	.nav-link {
-		font-size: 14px;
-		color: #94a3b8;
-		background: none;
-		border: none;
-		cursor: pointer;
-		transition: color 0.3s;
-	}
-
-	.nav-link:hover {
-		color: #22d3ee;
-	}
-
-	.nav-link.active {
-		color: #22d3ee;
-	}
-
-	.menu-btn {
-		display: none;
-		font-size: 24px;
-		background: none;
-		border: none;
+		gap: 10px;
 		color: #f8fafc;
-		cursor: pointer;
+		font-weight: 600;
+		font-size: 18px;
 	}
 
-	@media (max-width: 640px) {
-		links {
-			display: none;
+	menu {
+		display: flex;
+		gap: 30px;
+
+		@media (max-width: 640px) {
+			position: fixed;
+			top: 70px;
+			left: 0;
+			width: 100%;
+			background: rgba(15, 23, 42, 0.9);
+			backdrop-filter: blur(8px);
+			flex-direction: column;
+			gap: 0;
+			transform: translateY(-100%);
+			opacity: 0;
+			padding: 20px 0;
+			transition: all 0.3s ease;
+			pointer-events: none;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+			&.open {
+				transform: translateY(0);
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+	}
+
+	item {
+		position: relative;
+
+		&.active::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			bottom: -6px;
+			height: 3px;
+			width: 20px;
+			background: linear-gradient(90deg, #38bdf8, #6366f1);
+			border-radius: 3px;
+			transform: translateX(-50%);
 		}
 
-		.menu-btn {
-			display: block;
+		@media (max-width: 640px) {
+			padding: 15px 20px;
+			width: 100%;
+			text-align: center;
+
+			&.active::after {
+				bottom: 10px;
+			}
+		}
+	}
+
+	btn {
+		color: #e2e8f0;
+		font-size: 16px;
+		font-weight: 500;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		transition: color 0.3s;
+
+		&:hover {
+			color: #f8fafc;
+		}
+	}
+
+	toggle {
+		display: none;
+		flex-direction: column;
+		gap: 5px;
+		cursor: pointer;
+		padding: 5px;
+
+		@media (max-width: 640px) {
+			display: flex;
+		}
+
+		& bar {
+			width: 24px;
+			height: 2px;
+			background: #e2e8f0;
+			border-radius: 3px;
+			transition: all 0.3s ease;
 		}
 	}
 </style>

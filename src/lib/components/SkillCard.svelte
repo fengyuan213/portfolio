@@ -1,68 +1,54 @@
 <script lang="ts">
-	import type { Skill } from './types';
+	import Tag from './common/Tag.svelte';
+	import Card from './common/Card.svelte';
 
-	export let skill: Skill;
-
-	$: backgroundColor = `${skill.color}20`; // 20 is ~12% opacity in hex
+	const {
+		title,
+		icon,
+		items,
+		color
+	}: { title: string; icon: string; items: string[]; color: string } = $props();
 </script>
 
-<skill-card>
-	<icon style="background-color: {backgroundColor}">{skill.icon}</icon>
-
-	<content>
-		<h4 class="title">{skill.title}</h4>
-
-		<tags>
-			{#each skill.items as item}
-				<tag style="background-color: {backgroundColor}; color: {skill.color}">{item}</tag>
-			{/each}
-		</tags>
-	</content>
-</skill-card>
+<Card
+	{color}
+	background="rgba(255, 255, 255, 0.02)"
+	hoverBackground="rgba(255, 255, 255, 0.04)"
+	padding="20px"
+>
+	<header>
+		<icon style:color>{icon}</icon>
+		<h3>{title}</h3>
+	</header>
+	<list>
+		{#each items as item}
+			<Tag {color}>{item}</Tag>
+		{/each}
+	</list>
+</Card>
 
 <style>
-	skill-card {
+	header {
 		display: flex;
-		align-items: flex-start;
-		gap: 16px;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 16px;
+
+		& h3 {
+			color: #f8fafc;
+			font-size: 18px;
+			font-weight: 500;
+			margin: 0;
+		}
 	}
 
 	icon {
-		width: 40px;
-		height: 40px;
-		border-radius: 12px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		font-size: 20px;
-		flex-shrink: 0; /* Prevent icon from shrinking */
 	}
 
-	content {
-		flex: 1;
-		width: 100%;
-		min-width: 0; /* Allow content to shrink below its default size */
-	}
-
-	.title {
-		font-size: 16px;
-		font-weight: 500;
-		color: #e2e8f0;
-		margin-bottom: 12px;
-	}
-
-	tags {
+	list {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
-		width: 100%;
-	}
-
-	tag {
-		padding: 4px 12px;
-		border-radius: 6px;
-		font-size: 14px;
-
-		white-space: nowrap; /* Keep tag text on one line */
 	}
 </style>

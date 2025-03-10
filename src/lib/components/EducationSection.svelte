@@ -1,120 +1,112 @@
 <script lang="ts">
 	import type { Education } from './types';
 
-	export let education: Education;
+	const { education }: { education: Education } = $props();
 </script>
 
-<section>
+<section id="education">
 	<header>
-		<h3>Education</h3>
-		<divider></divider>
+		<title>Education</title>
 	</header>
 
-	<school-info>
-		<education-details>
-			<degree-text>{education.degree}</degree-text>
-			<university-text>{education.university}</university-text>
-			<year-text>{education.year}</year-text>
-		</education-details>
-	</school-info>
+	<card>
+		<degree>{education.degree}</degree>
+		<university>{education.university}</university>
+		<year>{education.year}</year>
 
-	{#if education.courses && education.courses.length > 0}
-		<courses-section>
-			<courses-title>Core Courses</courses-title>
-			<courses-list>
+		<courses-title>Core Courses</courses-title>
+		<course-list>
+			{#if education.courses}
 				{#each education.courses as course}
-					<course-item>{course}</course-item>
+					<course-item>
+						<bullet></bullet>
+						<span>{course}</span>
+					</course-item>
 				{/each}
-			</courses-list>
-		</courses-section>
-	{/if}
+			{/if}
+		</course-list>
+	</card>
 </section>
 
 <style>
 	section {
-		background-color: rgba(248, 250, 252, 0.02);
-		backdrop-filter: blur(8px);
-		border-radius: 24px;
-		padding: 32px;
-
-		& h3 {
-			font-size: 20px;
-			font-weight: 600;
-			color: #e2e8f0;
-		}
+		padding: 40px 0;
 	}
 
 	header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 32px;
+		margin-bottom: 20px;
+
+		& title {
+			font-size: 28px;
+			font-weight: 600;
+			color: #f8fafc;
+			display: block;
+		}
 	}
 
-	divider {
+	card {
+		background: rgba(30, 41, 59, 0.8);
+		border-radius: 12px;
+		padding: 24px;
+		border-left: 4px solid #8b5cf6;
 		display: block;
-		width: 40px;
-		height: 2px;
-		background-color: #22d3ee;
 	}
 
-	school-info {
-		display: flex;
-		align-items: center;
-		gap: 16px;
-		margin-bottom: 24px;
-	}
-
-	education-details {
-		display: flex;
-		flex-direction: column;
-	}
-
-	degree-text {
-		display: block;
-		font-size: 16px;
+	degree {
+		font-size: 20px;
+		font-weight: 600;
 		color: #f8fafc;
-		margin-bottom: 4px;
+		margin-bottom: 6px;
+		display: block;
 	}
 
-	university-text {
-		display: block;
-		font-size: 14px;
+	university {
 		color: #94a3b8;
-		margin-bottom: 4px;
-	}
-
-	year-text {
+		font-size: 16px;
 		display: block;
-		font-size: 14px;
-		color: #22d3ee;
 	}
 
-	courses-section {
-		margin-top: 16px;
-		padding-top: 16px;
-		border-top: 1px solid rgba(148, 163, 184, 0.1);
+	year {
+		color: #64748b;
+		font-size: 14px;
+		margin-top: 4px;
+		margin-bottom: 20px;
+		display: block;
 	}
 
 	courses-title {
-		display: block;
-		font-size: 14px;
+		font-size: 16px;
 		font-weight: 600;
-		color: #e2e8f0;
+		color: #f8fafc;
 		margin-bottom: 12px;
+		display: block;
 	}
 
-	courses-list {
+	course-list {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
+		flex-direction: column;
+		gap: 10px;
 	}
 
 	course-item {
-		font-size: 12px;
-		color: #94a3b8;
-		background-color: rgba(148, 163, 184, 0.1);
-		padding: 4px 10px;
-		border-radius: 4px;
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+
+		& bullet {
+			flex-shrink: 0;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #8b5cf6;
+			margin-top: 6px;
+			display: block;
+		}
+
+		& span {
+			color: #cbd5e1;
+			font-size: 14px;
+			line-height: 1.4;
+		}
 	}
 </style>

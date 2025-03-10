@@ -1,15 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { portfolioData } from './data';
 	import Navigation from './Navigation.svelte';
 	import AboutSection from './AboutSection.svelte';
 	import SkillsSection from './SkillsSection.svelte';
 	import ProjectsSection from './ProjectsSection.svelte';
 	import EducationSection from './EducationSection.svelte';
 	import ContactSection from './ContactSection.svelte';
-	import type { FormData } from './types';
+	import ProjectsModal from './ProjectsModal.svelte';
+	import type { PortfolioData } from './types';
+	import { projectState } from './projectContext.svelte';
+	import Popup from './Popup.svelte';
 
-	let activeSection = 'about';
+	let activeSection = $state('about');
 
 	function scrollToSection(section: string) {
 		activeSection = section;
@@ -17,10 +19,6 @@
 		if (element) {
 			element.scrollIntoView({ behavior: 'smooth' });
 		}
-	}
-
-	function handleContactSubmit(event: CustomEvent<FormData>) {
-		alert('Message sent!');
 	}
 
 	onMount(() => {
@@ -42,14 +40,23 @@
 
 		return () => observer.disconnect();
 	});
+
+	const { portfolioData }: { portfolioData: PortfolioData } = $props();
 </script>
 
 <container>
 	<Navigation {activeSection} onSectionClick={scrollToSection} />
 
+	{#if projectState.selectedProject}
+		<ProjectsModal
+			project={projectState.selectedProject}
+			onClose={() => (projectState.selectedProject = null)}
+		/>
+	{/if}
+
 	<main-area>
 		<content>
-			<AboutSection data={portfolioData} />
+			<AboutSection {portfolioData} />
 
 			<grid>
 				<col-left>
@@ -59,7 +66,7 @@
 
 				<col-right>
 					<EducationSection education={portfolioData.edu} />
-					<ContactSection on:submit={handleContactSubmit} />
+					<ContactSection />
 				</col-right>
 			</grid>
 		</content>

@@ -5,20 +5,28 @@ export interface Skill {
   title: string;
 }
 
-export interface SkillSet {
-  [key: string]: Skill;
-}
+export type SkillSet = Skill[];
+export type ProjectSet = Project[];
 
 export interface Project {
-  id: number;
   title: string;
-
   tags: string[];
   desc: string;
   icon: string;
   color: string;
-}
 
+  project_type:string
+  features?: ProjectFeature[];
+  demo_live?:string
+  github?:string;
+  details?: string;
+  image?: string;
+}
+export interface ProjectFeature{
+  icon:string
+  title:string
+  desc:string
+}
 export interface Education {
   degree: string;
   university: string;
@@ -39,7 +47,7 @@ export interface PortfolioData {
     cv:string;
   };
   skills: SkillSet;
-  projects: Project[];
+  projects: ProjectSet;
   edu: Education;
 }
 

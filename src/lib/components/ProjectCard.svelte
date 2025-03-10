@@ -1,58 +1,56 @@
 <script lang="ts">
 	import type { Project } from './types';
+	import { projectState } from './projectContext.svelte';
+	import Tag from './common/Tag.svelte';
+	import Card from './common/Card.svelte';
 
-	export let project: Project;
-
-	$: backgroundColor = `${project.color}20`; // 20 is ~12% opacity in hex
+	const { project }: { project: Project } = $props();
+	const backgroundColor = $derived(`${project.color}20`); // 20 is ~12% opacity in hex
 </script>
 
-<card>
-	<card-header>
-		<title-wrap>
-			<icon style="background-color: {backgroundColor}">{project.icon}</icon>
-			<h4 class="title">{project.title}</h4>
-		</title-wrap>
+<Card
+	color={project.color}
+	background="rgba(30, 41, 59, 0.8)"
+	hoverBackground="rgba(30, 41, 59, 0.9)"
+	padding="24px"
+>
+	<header>
+		<icon style:background-color={backgroundColor}>{project.icon}</icon>
+		<card-title>{project.title}</card-title>
+	</header>
 
-		<tags>
-			{#each project.tags as tag}
-				<tag style="background-color: {backgroundColor}; color: {project.color}">{tag}</tag>
-			{/each}
-		</tags>
-	</card-header>
-
-	<p class="desc">{project.desc}</p>
-
-	<button class="link" style="color: {project.color}">
+	<description>{project.desc}</description>
+	<tag-list>
+		{#each project.tags as tag}
+			<Tag color={project.color}>{tag}</Tag>
+		{/each}
+	</tag-list>
+	<view-btn
+		style:color={project.color}
+		on:click={() => {
+			console.log('Setting selected project:', project.title);
+			projectState.selectedProject = project;
+			console.log('State after update:', projectState.selectedProject?.title);
+		}}
+	>
 		<span>View Project</span>
-		<span class="arrow">→</span>
-	</button>
-</card>
+		<arrow>→</arrow>
+	</view-btn>
+</Card>
 
 <style>
-	card {
-		display: block;
-		background-color: rgba(248, 250, 252, 0.03);
-		border-radius: 16px;
-		padding: 24px;
-		transition: background-color 0.3s;
-	}
-
-	card:hover {
-		background-color: rgba(248, 250, 252, 0.05);
-	}
-
-	card-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 16px;
-		flex-wrap: wrap;
-	}
-
-	title-wrap {
+	header {
 		display: flex;
 		align-items: center;
 		gap: 12px;
+		margin-bottom: 12px;
+
+		& card-title {
+			font-size: 18px;
+			font-weight: 600;
+			color: #f8fafc;
+			display: block;
+		}
 	}
 
 	icon {
@@ -63,53 +61,44 @@
 		align-items: center;
 		justify-content: center;
 		font-size: 18px;
-		flex-shrink: 0; /* Prevent icon from shrinking */
+		flex-shrink: 0;
 	}
 
-	.title {
-		font-size: 18px;
-		font-weight: 500;
-		color: #e2e8f0;
+	description {
+		font-size: 14px;
+		color: #cbd5e1;
+		margin-bottom: 14px;
+		word-break: break-word;
+		display: block;
+		line-height: 1.5;
 	}
 
-	tags {
+	tag-list {
 		display: flex;
 		gap: 8px;
 		flex-wrap: wrap;
-	}
-
-	tag {
-		padding: 4px 12px;
-		border-radius: 6px;
-		font-size: 14px;
-		white-space: nowrap; /* Keep tag text on one line */
-	}
-
-	.desc {
-		font-size: 14px;
-		color: #94a3b8;
 		margin-bottom: 16px;
-		word-break: break-word;
 	}
 
-	.link {
+	view-btn {
 		font-size: 14px;
 		display: flex;
 		align-items: center;
 		gap: 8px;
 		text-decoration: none;
-
 		background: none;
 		border: none;
 		padding: 0;
 		cursor: pointer;
+		font-weight: 500;
+
+		& arrow {
+			display: inline-block;
+			transition: transform 0.3s;
+		}
 	}
 
-	.arrow {
-		transition: transform 0.3s;
-	}
-
-	card:hover .arrow {
+	:global(card:hover) view-btn arrow {
 		transform: translateX(4px);
 	}
 </style>

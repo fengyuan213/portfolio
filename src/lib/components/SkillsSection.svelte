@@ -1,60 +1,54 @@
 <script lang="ts">
-	import type { SkillSet } from './types';
 	import SkillCard from './SkillCard.svelte';
+	import type { Skill } from './types';
 
-	export let skills: SkillSet;
-
-	// Transform the skills object into an array for dynamic rendering
-	$: skillArray = Object.values(skills);
+	const { skills }: { skills: Skill[] } = $props();
 </script>
 
-<section id="skills" class="skills">
+<section id="skills">
 	<header>
-		<h3 class="title">Technical Expertise</h3>
-		<divider></divider>
+		<title>Skills & Technologies</title>
+		<subtitle>A collection of technologies I've worked with</subtitle>
 	</header>
 
-	<skill-list>
-		{#each skillArray as skill}
-			<SkillCard {skill} />
+	<grid>
+		{#each skills as skill (skill.title)}
+			<SkillCard title={skill.title} icon={skill.icon} items={skill.items} color={skill.color} />
 		{/each}
-	</skill-list>
+	</grid>
 </section>
 
 <style>
-	.skills {
-		background-color: rgba(248, 250, 252, 0.02);
-		backdrop-filter: blur(8px);
-		border-radius: 24px;
-		padding: 32px;
-		margin-bottom: 24px;
+	section {
+		padding: 60px 0;
+		scroll-margin-top: 80px;
 	}
 
 	header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 32px;
-		flex-wrap: wrap; /* Allow wrapping if needed */
+		margin-bottom: 30px;
+
+		& title {
+			font-size: 28px;
+			font-weight: 600;
+			color: #f8fafc;
+			margin-bottom: 10px;
+			display: block;
+		}
+
+		& subtitle {
+			color: #94a3b8;
+			font-size: 16px;
+			display: block;
+		}
 	}
 
-	.title {
-		font-size: 20px;
-		font-weight: 600;
-		color: #e2e8f0;
-	}
+	grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 24px;
 
-	divider {
-		display: block;
-		width: 40px;
-		height: 2px;
-		background-color: #22d3ee;
-	}
-
-	skill-list {
-		display: flex;
-		flex-direction: column;
-		gap: 32px;
-		width: 100%;
+		@media (max-width: 640px) {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>
