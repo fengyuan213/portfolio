@@ -92,7 +92,7 @@
 					<links>
 						{#if project.demo_live}
 							<a
-								href="https://"
+								href={project.demo_live}
 								style:background-color="rgba(34,211,238,0.10)"
 								style:color="#22D3EE"
 							>
@@ -101,7 +101,7 @@
 						{/if}
 						{#if project.github}
 							<a
-								href="https://"
+								href={project.github}
 								style:background-color="rgba(34,211,238,0.10)"
 								style:color="#22D3EE"
 							>

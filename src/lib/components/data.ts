@@ -64,7 +64,7 @@ export const portfolioData: PortfolioData = {
       tags: ["TypeScript", "SvelteKit", "SurrealDB","Pub/Sub"],
       desc: "Contributed to AI-powered website builder at Siteforge.io.",
       project_type: "Full Stack Application",
-      github: "https://github.com/fengyuan213/ai-website-builder",
+     // github: "https://github.com/fengyuan213/ai-website-builder",
       demo_live: "https://siteforge.io",
       details: "Built real-time messaging and automated support system using TypeScript, SvelteKit, and SurrealDB. This platform automates website creation using AI, providing seamless integration with real-time data sources and user interactions.",
       //image: "siteforge_screenshot.png",
@@ -108,7 +108,7 @@ export const portfolioData: PortfolioData = {
       tags: ["C#", ".NET", "NuGet", "WinForms"],
       desc: "Automated library for efficient asset management and updates.",
       project_type: "Library",
-      github: "https://github.com/fengyuan213/asset-updater",
+      github: "https://github.com/fengyuan213/assetsUpdater",
       details: "Provides an intelligent update mechanism that optimizes bandwidth usage and speeds up downloads using SHA1-based change detection and multi-threaded downloading. Packaged as a NuGet library for seamless integration.",
       //image: "asset_updater.png",
       features: [
@@ -137,8 +137,8 @@ export const portfolioData: PortfolioData = {
       tags: ["React", "AWS S3", "ChatBot"],
       desc: "AI-driven image transformation application.",
       project_type: "AI Application",
-      github: "https://github.com/fengyuan213/mystipic-ai",
-      demo_live: "https://mystipic.ai",
+      //github: "https://github.com/fengyuan213/mystipic-ai",
+      //demo_live: "https://mystipic.ai",
       details: "Developed an AI-powered application that transforms images using machine learning models. The platform allows users to apply filters, generate AI-driven artistic modifications, and store results on AWS S3.",
       //image: "mystipic_ai.png",
       features: [
