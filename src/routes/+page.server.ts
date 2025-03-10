@@ -37,7 +37,7 @@ export const actions: Actions = {
             if(res.error){
                 console.log(res.error)
                 console.log(res.data)
-                return fail(500, { error: 'Failed to send message. Please try again later.' });
+                return fail(500, { error: 'Failed to send message. Please check your email address and try again later.' });
             }
             return { success: true, message: 'Message sent successfully!' };
         } catch (error) {
