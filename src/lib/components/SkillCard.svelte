@@ -35,10 +35,13 @@
 		align-items: center;
 		justify-content: center;
 		font-size: 20px;
+		flex-shrink: 0; /* Prevent icon from shrinking */
 	}
 
 	content {
 		flex: 1;
+		width: 100%;
+		min-width: 0; /* Allow content to shrink below its default size */
 	}
 
 	.title {
@@ -52,11 +55,14 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
+		width: 100%;
 	}
 
 	tag {
 		padding: 4px 12px;
 		border-radius: 6px;
 		font-size: 14px;
+
+		white-space: nowrap; /* Keep tag text on one line */
 	}
 </style>

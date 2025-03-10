@@ -46,6 +46,7 @@
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: 16px;
+		flex-wrap: wrap;
 	}
 
 	title-wrap {
@@ -62,6 +63,7 @@
 		align-items: center;
 		justify-content: center;
 		font-size: 18px;
+		flex-shrink: 0; /* Prevent icon from shrinking */
 	}
 
 	.title {
@@ -73,18 +75,21 @@
 	tags {
 		display: flex;
 		gap: 8px;
+		flex-wrap: wrap;
 	}
 
 	tag {
 		padding: 4px 12px;
 		border-radius: 6px;
 		font-size: 14px;
+		white-space: nowrap; /* Keep tag text on one line */
 	}
 
 	.desc {
 		font-size: 14px;
 		color: #94a3b8;
 		margin-bottom: 16px;
+		word-break: break-word;
 	}
 
 	.link {

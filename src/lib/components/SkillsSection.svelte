@@ -35,6 +35,7 @@
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: 32px;
+		flex-wrap: wrap; /* Allow wrapping if needed */
 	}
 
 	.title {
@@ -54,5 +55,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 32px;
+		width: 100%;
 	}
 </style>
