@@ -16,7 +16,7 @@ export const portfolioData: PortfolioData = {
     {
       title: "Programming Languages",
       icon: "💻",
-      items: ["C#", "Java","TypeScript" ,"JavaScript", "Bash", "Shell", "Batch"],
+      items: ["C#", "Java","Python","TypeScript" ,"JavaScript","C++","C","SQL", "Bash", "Shell", "Batch"],
       color: "#22D3EE"
     },
     {
