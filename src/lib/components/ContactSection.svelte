@@ -14,7 +14,29 @@
 	<!-- Direct SvelteKit form action approach -->
 	<!-- If Portfolio is rendered at route /, the action will be /?/contact -->
 	<!-- If Portfolio is rendered elsewhere, adjust the action accordingly -->
-	<form class="form" method="POST" action="?/contact" use:enhance>
+	<form
+		class="form"
+		method="POST"
+		action="?/contact"
+		use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+			// Before form submission
+			const submitBtn = formElement.querySelector('.btn');
+			if (submitBtn) submitBtn.innerHTML = 'Sending...';
+
+			return async ({ result, update }) => {
+				// After form submission
+				if (submitBtn) submitBtn.innerHTML = 'Send Message';
+
+				// Handle the result
+				if (result.type === 'success') {
+					formElement.reset();
+				}
+
+				// Update the form
+				await update();
+			};
+		}}
+	>
 		<input type="text" name="name" placeholder="Your Name" class="input" required />
 
 		<input type="email" name="email" placeholder="Your Email" class="input" required />
@@ -24,12 +46,13 @@
 
 		<button type="submit" class="btn">Send Message</button>
 	</form>
-	{#if page.form?.message}
-		<p class="message">{page.form.message}</p>
+
+	{#if page.form?.success}
+		<p class="message">✅ {page.form.message}</p>
 	{/if}
 
 	{#if page.form?.error}
-		<p class="error">{page.form.error}</p>
+		<p class="error">❌ {page.form.error}</p>
 	{/if}
 </section>
 
