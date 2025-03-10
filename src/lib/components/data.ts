@@ -10,7 +10,7 @@ export const portfolioData: PortfolioData = {
   links: {
     github: "github.com/fengyuan213",
     linkedin: "linkedin.com/in/fengyuan213",
-    cv: "linkedin.com/in/fengyuan213",
+    cv: "r2.fengy.cc/Freddy%20Liu.pdf",
   },
   skills: [
     {
