@@ -54,7 +54,7 @@
 					padding="1rem"
 				>
 					<h4>Project Type</h4>
-					<text>Full-stack Application</text>
+					<text>{project.project_type}</text>
 				</Card>
 			</info-grid>
 
