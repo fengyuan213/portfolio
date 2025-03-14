@@ -9,7 +9,7 @@ export const portfolioData: PortfolioData = {
   experience: "5+ years of experience",
   links: {
     github: "github.com/fengyuan213",
-    linkedin: "linkedin.com/in/fengyuan213",
+    linkedin: "www.linkedin.com/in/fengyuan-liu213",
     cv: "r2.fengy.cc/Freddy%20Liu.pdf",
   },
   skills: [
